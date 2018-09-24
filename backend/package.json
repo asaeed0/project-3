@@ -1,0 +1,16 @@
+{
+  "name": "project-3",
+  "version": "1.0.0",
+  "description": "A MERN stack Raspberry Pi based Home Automation app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "author": "Amaan Saeed",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3"
+  }
+}
