@@ -6,7 +6,7 @@ const routes = app => {
   });
 
   app.get("/api/relay-control/", (req, res) => {
-    res.json(data.userSettings);
+    res.json(data);
   });
 
   app.get("/api/climate-control/", (req, res) => {
