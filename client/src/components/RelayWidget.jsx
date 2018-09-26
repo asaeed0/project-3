@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
-import './RelayControl.css'
+import './RelayWidget.css'
 import Relay from './Relay'
 
 
-class RelayControl extends Component {
+class RelayWidget extends Component {
     state = { relays: [] }
-    render() { 
-        // Filters through the pins to create an array of only the active pins
-        const activePins = this.state.relays.filter(relay => {
-            return (relay.active);
-        });
-        
+    render() {
         return (
             <div id="relay">
                 <h2>Relay Switch</h2>
@@ -21,7 +16,7 @@ class RelayControl extends Component {
                     <button id="relay-btn-night" >Night</button>
                 </div>
 
-                {activePins.map((relay, i) => {
+                {this.state.relays.map((relay, i) => {
                     return (
                         <Relay relay={relay} i={i} key={i} />
                     )
@@ -38,4 +33,4 @@ class RelayControl extends Component {
 
 }
  
-export default RelayControl;
+export default RelayWidget;

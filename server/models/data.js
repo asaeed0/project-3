@@ -140,6 +140,20 @@ module.exports = {
           }
         });
       }
+      returnRelaysClean() {
+        const relaysClean = [];
+        this.activeRelays.map(relay => {
+          const cleanRelay = {
+            switchNumber: relay.switchNumber,
+            status: relay.gpio.digitalRead() === 0 ? false : true
+          };
+          relaysClean.push(cleanRelay);
+        });
+        return relaysClean;
+      }
+      returnRelaysRaw() {
+        return this.activeRelays;
+      }
     }
   }
 };
