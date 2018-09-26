@@ -129,12 +129,13 @@ module.exports = {
       toggleRelay(switchNumber) {
         this.activeRelays.map((relay, i) => {
           if (relay.switchNumber === switchNumber) {
-            if (this.activeRelays[i].gpio.digitalRead() === 0) {
+            const relayStatus = this.activeRelays[i].gpio.digitalRead();
+            if (relayStatus === 0) {
               this.activeRelays[i].gpio.digitalWrite(1);
-              // console.log("Turned Relay to 1");
-            } else {
+              console.log("Changed switch " + switchNumber + " to ON");
+            } else if (relayStatus === 1) {
               this.activeRelays[i].gpio.digitalWrite(0);
-              // console.log("Turned Relay to 0");
+              console.log("Changed switch " + switchNumber + " to ON");
             }
           }
         });
