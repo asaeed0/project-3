@@ -4,13 +4,15 @@
   "description": "A MERN stack Raspberry Pi based Home Automation app",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nodemon app",
     "start": "node app"
   },
   "author": "Amaan Saeed",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "dotenv": "^6.0.0",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "pigpio-mock": "0.0.1"
   }
 }

@@ -1,0 +1,35 @@
+#news-widget {
+    background: lightsalmon;
+    height: max-content;
+    width: max-content;
+    padding: 20px;
+
+    overflow: scroll;
+}
+
+.news-article {
+    padding-bottom: 10px;
+    display: grid;
+    grid-template-columns: 100px 500px;
+    grid-template-areas:'image body';
+}
+
+.news-image { grid-area: image; }
+.news-body { grid-area: body; }
+
+.news-headline,
+.news-summary {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.news-headline {
+    margin-top: 5px;
+    font-size: 0.7em;
+    font-weight: bold;
+}
+
+.news-summary {
+    padding-top: 7px;
+    font-size: 0.5em;
+}

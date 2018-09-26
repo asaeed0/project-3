@@ -1,6 +1,12 @@
 module.exports = {
   userSettings: {
-    greeting: "Hello Mars",
+    greetings: [
+      "Hello World",
+      "Hello Mars",
+      "Hello Idiot",
+      "Hows it going?",
+      "Whats up?"
+    ],
     clock: "12hr",
     weatherLocation: "",
     newsOutlet: "globe and mail"
@@ -16,102 +22,137 @@ module.exports = {
       }
     ]
   },
-  pins: [
-    {
-      gpioNumber: 29,
-      switchNumber: 1,
-      active: true,
-      status: false
+  weather: {
+    apiKey: "",
+    apiCall:
+      "http://dataservice.accuweather.com/currentconditions/v1/55488?apikey=b6myurKAMGUZIjoWJ7Xf6XYQAP45lhOg&details=true"
+  },
+  relayController: {
+    pins: [
+      {
+        switchNumber: 1,
+        gpioNumber: 29,
+        isActive: true
+      },
+      {
+        switchNumber: 2,
+        gpioNumber: 31,
+        isActive: true
+      },
+      {
+        switchNumber: 3,
+        gpioNumber: 33,
+        isActive: true
+      },
+      {
+        switchNumber: 4,
+        gpioNumber: 35,
+        isActive: true
+      },
+      {
+        switchNumber: 5,
+        gpioNumber: 37,
+        isActive: false
+      },
+      {
+        switchNumber: 6,
+        gpioNumber: 39,
+        isActive: false
+      },
+      {
+        switchNumber: 7,
+        gpioNumber: 0,
+        isActive: false
+      },
+      {
+        switchNumber: 8,
+        gpioNumber: 0,
+        isActive: false
+      },
+      {
+        switchNumber: 9,
+        gpioNumber: 0,
+        isActive: false
+      },
+      {
+        switchNumber: 10,
+        gpioNumber: 0,
+        isActive: false
+      },
+      {
+        switchNumber: 11,
+        gpioNumber: 0,
+        isActive: false
+      },
+      {
+        switchNumber: 12,
+        gpioNumber: 0,
+        isActive: false
+      },
+      {
+        switchNumber: 13,
+        gpioNumber: 0,
+        isActive: false
+      },
+      {
+        switchNumber: 14,
+        gpioNumber: 0,
+        isActive: false
+      },
+      {
+        switchNumber: 15,
+        gpioNumber: 0,
+        isActive: false
+      },
+      {
+        switchNumber: 16,
+        gpioNumber: 0,
+        isActive: false
+      }
+    ],
+    Relays: class {
+      constructor(Gpio, relays = this.pins) {
+        this.activeRelays = (() => {
+          const relaysActive = relays.filter(relay => {
+            return relay.isActive;
+          });
+          relaysActive.map(relay => {
+            relay.gpio = new Gpio(relay.gpioNumber, { mode: Gpio.OUTPUT });
+          });
+          console.log("Relays successfully initialized");
+          return relaysActive;
+        })();
+      }
+      toggleRelay(switchNumber) {
+        this.activeRelays.map((relay, i) => {
+          if (relay.switchNumber === switchNumber) {
+            if (activeRelays[i].gpio.digitalRead() === 0) {
+              activeRelays[i].gpio.digitalWrite(1);
+            } else {
+              activeRelays[i].gpio.digitalWrite(0);
+            }
+          }
+        });
+      }
     },
-    {
-      gpioNumber: 31,
-      switchNumber: 2,
-      active: true,
-      status: false
+
+    initializeRelays: function(Gpio, relaysRaw = this.pins) {
+      const relaysActive = relaysRaw.filter(relay => {
+        return relay.isActive;
+      });
+      relaysActive.map(relay => {
+        relay.gpio = new Gpio(relay.gpioNumber, { mode: Gpio.OUTPUT });
+      });
+      console.log("Relays successfully initialized");
+      return relaysActive;
     },
-    {
-      gpioNumber: 33,
-      switchNumber: 3,
-      active: true,
-      status: false
-    },
-    {
-      gpioNumber: 35,
-      switchNumber: 4,
-      active: true,
-      status: false
-    },
-    {
-      gpioNumber: 37,
-      switchNumber: 5,
-      active: false,
-      status: false
-    },
-    {
-      gpioNumber: 39,
-      switchNumber: 6,
-      active: false,
-      status: false
-    },
-    {
-      gpioNumber: 0,
-      switchNumber: 7,
-      active: false,
-      status: false
-    },
-    {
-      gpioNumber: 0,
-      switchNumber: 8,
-      active: false,
-      status: false
-    },
-    {
-      gpioNumber: 0,
-      switchNumber: 9,
-      active: false,
-      status: false
-    },
-    {
-      gpioNumber: 0,
-      switchNumber: 10,
-      active: false,
-      status: false
-    },
-    {
-      gpioNumber: 0,
-      switchNumber: 11,
-      active: false,
-      status: false
-    },
-    {
-      gpioNumber: 0,
-      switchNumber: 12,
-      active: false,
-      status: false
-    },
-    {
-      gpioNumber: 0,
-      switchNumber: 13,
-      active: false,
-      status: false
-    },
-    {
-      gpioNumber: 0,
-      switchNumber: 14,
-      active: false,
-      status: false
-    },
-    {
-      gpioNumber: 0,
-      switchNumber: 15,
-      active: false,
-      status: false
-    },
-    {
-      gpioNumber: 0,
-      switchNumber: 16,
-      active: false,
-      status: false
+    toggleRelay: function(relayObj, relaysRaw = this.pins) {
+      const switchNumber = relayObj.switchNumber;
+      relaysRaw.map(relay => {
+        if (relay.switchNumber === switchNumber) {
+        }
+      });
+      relayToggle;
     }
-  ]
+  }
 };

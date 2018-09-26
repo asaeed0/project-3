@@ -1,0 +1,27 @@
+#widget-weather {
+    background: lightcoral;
+    height: max-content;
+    width: max-content;
+    padding: 20px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 170px);
+    grid-template-areas: 
+        'graphic temperature'
+        'graphic real-feel'
+        'graphic humidity'
+        'summary precipitation';
+}
+
+#weather-icon { grid-area: graphic; }
+#weather-temperature { grid-area: temperature; }
+#weather-real-feel { grid-area: real-feel; }
+#weather-humidity { grid-area: humidity; }
+#weather-precipitation { grid-area: precipitation; }
+#weather-summary { grid-area: summary; }
+
+
+#weather-summary,
+#weather-icon {
+    text-align: center;
+}

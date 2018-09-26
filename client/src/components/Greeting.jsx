@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
-
-const greetings = [
-    "Hello World",
-    "Hello Mars",
-    "Hello Idiot",
-    "Hows it going?",
-    "Whats up?"
-];
+import './Greeting.css'
+import Clock from './Clock'
 
 class Greeting extends Component {
     state = {
@@ -15,14 +9,17 @@ class Greeting extends Component {
 
     render() { 
         return (
-            <div id="greeting">
-                <h1>{this.state.greeting}</h1>
+            <div id="widget-greeting">
+                <span id="greeting-text">{this.state.greeting}</span>
+                <Clock />
             </div>
         );
     }
 
-    componentDidMount() {
-        let greeting = greetings[ Math.floor( Math.random() * greetings.length) ];
+    async componentDidMount() {
+        const response = await fetch('/api/greetings');
+        const greetings = await response.json();
+        const greeting = greetings[ Math.floor( Math.random() * greetings.length) ];
         this.setState({greeting: greeting})
     }
 }

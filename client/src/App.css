@@ -1,0 +1,17 @@
+#app {
+    display: grid;
+
+    grid-template-columns: repeat(2, 50vw);
+    grid-template-rows: 40vh 20vh 40vh;
+
+    grid-template-areas: 
+        'dashboard weather'
+        'greeting greeting'
+        'calendar news';
+}
+
+#app-dashboard { grid-area: dashboard; }
+#app-weather { grid-area: weather; }
+#app-greeting { grid-area: greeting; }
+#app-calendar { grid-area: calendar; }
+#app-news { grid-area: news; }

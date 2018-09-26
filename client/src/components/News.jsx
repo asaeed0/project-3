@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './News.css'
 import axios from 'axios';
 
 class News extends Component {
@@ -10,13 +11,17 @@ class News extends Component {
     }
     render() { 
         return ( 
-            <div id="news">
+            <div id="news-widget">
                 {this.state.news.map((article, i) => {
                     return (
                         <div className="news-article" key={i}>
-                            <img className="news-image" src="" alt="" />
-                            <h2 className="news-headline">{article.title}</h2>
-                            <span className="news-summary">{article.description}</span>
+                            <div className="news-image" >
+                                <img src={article.urlToImage} alt="Hello" width="100%" />
+                            </div>
+                            <div className="news-body">
+                                <div className="news-headline">{article.title}</div>
+                                <div className="news-summary">{article.description}</div>
+                            </div>
                         </div>
                     )
                 })}
