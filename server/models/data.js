@@ -27,32 +27,32 @@ module.exports = {
     apiCall:
       "http://dataservice.accuweather.com/currentconditions/v1/55488?apikey=b6myurKAMGUZIjoWJ7Xf6XYQAP45lhOg&details=true"
   },
-  relayController: {
+  relays: {
     pins: [
       {
         switchNumber: 1,
-        gpioNumber: 29,
+        gpioNumber: 5,
         isActive: true
       },
       {
         switchNumber: 2,
-        gpioNumber: 31,
+        gpioNumber: 6,
         isActive: true
       },
       {
         switchNumber: 3,
-        gpioNumber: 33,
+        gpioNumber: 13,
         isActive: true
       },
       {
         switchNumber: 4,
-        gpioNumber: 35,
+        gpioNumber: 19,
         isActive: true
       },
       {
         switchNumber: 5,
-        gpioNumber: 37,
-        isActive: false
+        gpioNumber: 26,
+        isActive: true
       },
       {
         switchNumber: 6,
@@ -110,49 +110,35 @@ module.exports = {
         isActive: false
       }
     ],
-    Relays: class {
+    RelayController: class {
       constructor(Gpio, relays = this.pins) {
         this.activeRelays = (() => {
           const relaysActive = relays.filter(relay => {
             return relay.isActive;
           });
           relaysActive.map(relay => {
-            relay.gpio = new Gpio(relay.gpioNumber, { mode: Gpio.OUTPUT });
+            relay.gpio = new Gpio(relay.gpioNumber, {
+              mode: Gpio.OUTPUT,
+              alert: true
+            });
           });
           console.log("Relays successfully initialized");
           return relaysActive;
         })();
       }
-      toggleRelay(switchNumber) {
-        this.activeRelays.map((relay, i) => {
+      toggleRelay(switchNumber, activeRelays = this.activeRelays) {
+        activeRelays.map((relay, i) => {
           if (relay.switchNumber === switchNumber) {
             if (activeRelays[i].gpio.digitalRead() === 0) {
               activeRelays[i].gpio.digitalWrite(1);
+              // console.log("Turned Relay to 1");
             } else {
               activeRelays[i].gpio.digitalWrite(0);
+              // console.log("Turned Relay to 0");
             }
           }
         });
       }
-    },
-
-    initializeRelays: function(Gpio, relaysRaw = this.pins) {
-      const relaysActive = relaysRaw.filter(relay => {
-        return relay.isActive;
-      });
-      relaysActive.map(relay => {
-        relay.gpio = new Gpio(relay.gpioNumber, { mode: Gpio.OUTPUT });
-      });
-      console.log("Relays successfully initialized");
-      return relaysActive;
-    },
-    toggleRelay: function(relayObj, relaysRaw = this.pins) {
-      const switchNumber = relayObj.switchNumber;
-      relaysRaw.map(relay => {
-        if (relay.switchNumber === switchNumber) {
-        }
-      });
-      relayToggle;
     }
   }
 };

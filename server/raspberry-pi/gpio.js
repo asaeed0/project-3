@@ -1,8 +1,9 @@
 const Gpio = require("pigpio-mock").Gpio;
-const relayController = require("../models/data").relayController;
+// const Gpio = require("pigpio").Gpio;
+const relays = require("../models/data").relays;
 
-// initializeRelaysOutput(relaysRaw);
-// toggleRelay(relaysRaw[2]);
-
-const relays = new relayController.Relays(Gpio, relayController.pins);
-console.log(relays);
+const relayControl = new relays.RelayController(Gpio, relays.pins);
+relayControl.toggleRelay(2);
+relayControl.toggleRelay(1);
+relayControl.toggleRelay(2);
+relayControl.toggleRelay(1);
