@@ -126,14 +126,14 @@ module.exports = {
           return relaysActive;
         })();
       }
-      toggleRelay(switchNumber, activeRelays = this.activeRelays) {
-        activeRelays.map((relay, i) => {
+      toggleRelay(switchNumber) {
+        this.activeRelays.map((relay, i) => {
           if (relay.switchNumber === switchNumber) {
-            if (activeRelays[i].gpio.digitalRead() === 0) {
-              activeRelays[i].gpio.digitalWrite(1);
+            if (this.activeRelays[i].gpio.digitalRead() === 0) {
+              this.activeRelays[i].gpio.digitalWrite(1);
               // console.log("Turned Relay to 1");
             } else {
-              activeRelays[i].gpio.digitalWrite(0);
+              this.activeRelays[i].gpio.digitalWrite(0);
               // console.log("Turned Relay to 0");
             }
           }
