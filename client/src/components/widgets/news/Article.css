@@ -1,0 +1,24 @@
+#article {
+    text-align: left;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#article-body {
+    overflow: scroll;
+}
+
+#article-image {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#article-image img {
+    width: 70%;
+    height: auto;
+}
+
+#article-content {
+    font-size: 0.9em;
+}

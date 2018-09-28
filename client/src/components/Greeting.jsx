@@ -9,9 +9,11 @@ class Greeting extends Component {
 
     render() { 
         return (
-            <div id="widget-greeting">
-                <span id="greeting-text">{this.state.greeting}</span>
-                <Clock />
+            <div id="greeting-summary">
+                <div id="greeting-text">
+                    <h1>{this.state.greeting}</h1>
+                    <Clock />
+                </div>
             </div>
         );
     }

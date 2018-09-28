@@ -1,22 +1,38 @@
 import React, { Component } from "react";
+// import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import { Route } from "react-router-dom";
 import "./App.css";
-import Weather from "./components/Weather";
+
+//  Summary Elements
+// import Weather from "./components/Weather";
 import News from "./components/News";
-import RelayWidget from "./components/RelayWidget";
-// import Greeting from "./components/Greeting";
+import Greeting from "./components/Greeting";
 import Dashboard from "./components/Dashboard";
+import Calendar from "./components/Calendar";
+
+//  Widgets
+import RelayWidget from "./components/widgets/relays/RelayWidget";
+import CalendarWidget from "./components/widgets/calendar/CalendarWidget";
+import WeatherWidget from "./components/widgets/weather/WeatherWidget";
+import NewsWidget from "./components/widgets/news/NewsWidget";
 
 class App extends Component {
   render() {
     return (
-      <div id="app">
-        <Dashboard id="app-dashboard" />
-        <Weather id="app-weather" />
-        <RelayWidget />
-        {/* <Greeting id="app-greeting" /> */}
-        <div id="app-calendar">CALENDAR</div>
-        <News id="app-news" />
-      </div>
+      <BrowserRouter>
+        <React.Fragment>
+          <Dashboard />
+          {/* <Weather /> */}
+          <Route path="/relay" exact component={RelayWidget} />
+          <Route path="/calendar" exact component={CalendarWidget} />
+          <Route path="/weather" exact component={WeatherWidget} />
+          <Route path="/news" exact component={NewsWidget} />
+          <Route path="/" exact component={Greeting} />
+          <Calendar />
+          <News />}
+        </React.Fragment>
+      </BrowserRouter>
     );
   }
 }

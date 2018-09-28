@@ -11,20 +11,21 @@ class News extends Component {
     }
     render() { 
         return ( 
-            <div id="news-widget">
-                {this.state.news.map((article, i) => {
-                    return (
-                        <div className="news-article" key={i}>
-                            <div className="news-image" >
-                                <img src={article.urlToImage} alt="Hello" width="100%" />
-                            </div>
-                            <div className="news-body">
+            <div id="news-summary">
+                <div id="news-heading">News</div>
+                <div id="news-body">
+                    {this.state.news.map((article, i) => {
+                        return (
+                            <div className="news-article" key={i}>
+                                <div className="news-image" >
+                                    <img src={article.urlToImage} alt="Hello" width="100%" />
+                                </div>
                                 <div className="news-headline">{article.title}</div>
-                                <div className="news-summary">{article.description}</div>
+                                <hr />
                             </div>
-                        </div>
-                    )
-                })}
+                        )
+                    })}
+                </div>
             </div>
          );
     }

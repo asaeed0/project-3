@@ -1,27 +1,54 @@
-#widget-weather {
-    background: lightcoral;
-    height: max-content;
-    width: max-content;
-    padding: 20px;
-
+/*  GRID SETTINGS   */
+#weather-content {
     display: grid;
-    grid-template-columns: repeat(2, 170px);
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 65% 35%;
     grid-template-areas: 
-        'graphic temperature'
-        'graphic real-feel'
-        'graphic humidity'
-        'summary precipitation';
+        'icon temperature'
+        'brief brief';
 }
 
-#weather-icon { grid-area: graphic; }
+#weather-icon { grid-area: icon; }
 #weather-temperature { grid-area: temperature; }
-#weather-real-feel { grid-area: real-feel; }
-#weather-humidity { grid-area: humidity; }
-#weather-precipitation { grid-area: precipitation; }
-#weather-summary { grid-area: summary; }
+#weather-brief { grid-area: brief; }
 
 
-#weather-summary,
-#weather-icon {
+/*  MAIN CSS    */
+
+#weather-summary {
+    background: lightcoral;
+    height: 150px;
+    width: 240px;
+    padding: 20px;
+    margin: 15px;
+    border-radius: 7px;
+
     text-align: center;
+}
+
+#weather-heading {
+    padding: 0px;
+    margin: 0px;
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+#weather-icon img {
+    width: 100%;
+    height: 100%;
+}
+
+#weather-temperature {
+    font-size: 1.5em;
+}
+
+#weather-brief {
+    font-size: 2em;
+}
+
+#weather-icon div,
+#weather-temperature div {
+    position: relative;
+    top: 50%;
+    transform: translate(0%, -50%);
 }

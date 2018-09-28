@@ -1,13 +1,10 @@
-#dashboard-summary {
-    background: lightseagreen;
+#calendar-summary {
+    background: lightskyblue;
     height: 150px;
     width: 240px;
     padding: 20px;
     margin: 15px;
     border-radius: 7px;
-}
 
-#dashboard-heading {
     text-align: center;
-    margin-bottom: 10px;
 }

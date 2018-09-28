@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
 import './RelayWidget.css'
 import Relay from './Relay'
+import axios from 'axios'
 
 
 class RelayWidget extends Component {
-    state = { relays: [] }
+    state = {
+        timestamp: null,
+        relays: []
+    }
+    handleToggle = async (relay, timestamp=this.state.timestamp) => {
+        const { data: apiResponse } = await axios.post('/api/relay-control/', { switchNumber : relay, timestamp: timestamp, });
+        const updatedTimestamp = apiResponse[0];
+        const updatedRelays = apiResponse[1];
+
+        this.setState({ timestamp: updatedTimestamp, relays: updatedRelays});
+    }
     render() {
         return (
-            <div id="relay">
+            <div id="relay-widget" data-timestamp={this.state.timestamp} >
                 <h2>Relay Switch</h2>
 
                 <div id="relay-presets">
@@ -18,7 +29,7 @@ class RelayWidget extends Component {
 
                 {this.state.relays.map((relay, i) => {
                     return (
-                        <Relay relay={relay} i={i} key={i} />
+                        <Relay relay={relay} onToggle={this.handleToggle} i={i} key={i} />
                     )
                 })}
             </div>

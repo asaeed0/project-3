@@ -11,16 +11,20 @@ class Weather extends Component {
         const { weather } = this.state;
 
         return ( 
-            <div id="widget-weather">
-                {!this.state.apiLoad ? <span id="weather-preload">Loading...</span> : null}
-                {this.state.error ? <span id="weather-preload">There was a problem</span> : null}
-            
-                <div id="weather-icon">{weather ? <img src={"https://developer.accuweather.com/sites/default/files/" + weather.WeatherIcon + "-s.png"} alt="weather icon" /> : null}</div>
-                <div id="weather-temperature">{weather ? "Temperature: " + weather.Temperature.Metric.Value : null}</div>
-                <div id="weather-real-feel">{weather ? "Real Feel: " + weather.RealFeelTemperature.Metric.Value : null}</div>
-                <div id="weather-humidity">{weather ? "Humidity: " + weather.RelativeHumidity : null}</div>
-                <div id="weather-precipitation">{weather ? "Chance of Rain: " + weather.Temperature.Metric.Value : null}</div>
-                <div id="weather-summary">{weather ? weather.WeatherText : null}</div>
+            <div id="weather-summary">
+                <div id="weather-heading">Weather</div>
+                <div id="weather-content">
+                    {!this.state.apiLoad ? <span id="weather-preload">Loading...</span> : null}
+                    {this.state.error ? <span id="weather-preload">There was a problem</span> : null}
+                
+                    <div id="weather-icon">
+                        <div>{weather ? <img src={"https://developer.accuweather.com/sites/default/files/" + weather.WeatherIcon + "-s.png"} alt="weather icon" /> : null}</div>
+                    </div>
+                    <div id="weather-temperature">
+                        <div>{weather ? weather.Temperature.Metric.Value + "°C" : null}</div>
+                    </div>
+                    <div id="weather-brief">{weather ? weather.WeatherText : null}</div>
+                </div>
             </div>
          );
     }

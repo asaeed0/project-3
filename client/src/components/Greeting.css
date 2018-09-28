@@ -1,15 +1,19 @@
-#widget-greeting {
+#greeting-summary {
     background: lightblue;
     text-align: center;
-    width: 50vw;
-    height: max-content;
-
-    position: relative;
-    left: 50%;
-    transform: translate(-50%, 0)
+    width: 700px;
+    height: 150px;
+    border-radius: 7px;
 }
 
 #greeting-text {
-    font-size: 3em;
+    position: relative;
+    top: 50%;
+    transform: translate(0%, -50%);
+}
 
+#greeting-text h1 {
+    padding: 0px;
+    margin: 0px;
+    font-size: 50px;
 }

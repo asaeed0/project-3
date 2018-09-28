@@ -30,81 +30,113 @@ module.exports = {
   relays: {
     pins: [
       {
+        name: "Lamp 1",
+        group: "Living Room",
         switchNumber: 1,
         gpioNumber: 5,
         isActive: true
       },
       {
+        name: "Lamp 2",
+        group: "Living Room",
         switchNumber: 2,
         gpioNumber: 6,
         isActive: true
       },
       {
+        name: "Fan",
+        group: "Bedroom",
         switchNumber: 3,
         gpioNumber: 13,
         isActive: true
       },
       {
+        name: "Ceiling Light",
+        group: "Bedroom",
         switchNumber: 4,
         gpioNumber: 19,
         isActive: true
       },
       {
+        name: "Heater",
+        group: "Garage",
         switchNumber: 5,
         gpioNumber: 26,
         isActive: true
       },
       {
+        name: "",
+        group: "",
         switchNumber: 6,
         gpioNumber: 39,
         isActive: false
       },
       {
+        name: "",
+        group: "",
         switchNumber: 7,
         gpioNumber: 0,
         isActive: false
       },
       {
+        name: "",
+        group: "",
         switchNumber: 8,
         gpioNumber: 0,
         isActive: false
       },
       {
+        name: "",
+        group: "",
         switchNumber: 9,
         gpioNumber: 0,
         isActive: false
       },
       {
+        name: "",
+        group: "",
         switchNumber: 10,
         gpioNumber: 0,
         isActive: false
       },
       {
+        name: "",
+        group: "",
         switchNumber: 11,
         gpioNumber: 0,
         isActive: false
       },
       {
+        name: "",
+        group: "",
         switchNumber: 12,
         gpioNumber: 0,
         isActive: false
       },
       {
+        name: "",
+        group: "",
         switchNumber: 13,
         gpioNumber: 0,
         isActive: false
       },
       {
+        name: "",
+        group: "",
         switchNumber: 14,
         gpioNumber: 0,
         isActive: false
       },
       {
+        name: "",
+        group: "",
         switchNumber: 15,
         gpioNumber: 0,
         isActive: false
       },
       {
+        name: "",
+        group: "",
         switchNumber: 16,
         gpioNumber: 0,
         isActive: false
@@ -112,6 +144,7 @@ module.exports = {
     ],
     RelayController: class {
       constructor(Gpio, relays = this.pins) {
+        this.lastToggle = "";
         this.activeRelays = (() => {
           const relaysActive = relays.filter(relay => {
             return relay.isActive;
@@ -139,11 +172,15 @@ module.exports = {
             }
           }
         });
+        this.lastToggle = Date.now();
+        return this.lastToggle;
       }
       returnRelaysClean() {
         const relaysClean = [];
         this.activeRelays.map(relay => {
           const cleanRelay = {
+            name: relay.name,
+            group: relay.group,
             switchNumber: relay.switchNumber,
             status: relay.gpio.digitalRead() === 0 ? false : true
           };

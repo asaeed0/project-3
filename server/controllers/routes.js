@@ -14,15 +14,15 @@ const routes = app => {
   app.post("/api/relay-control/", (req, res) => {
     //  Prep incoming data - SwitchNumber
     const switchNumber = parseInt(req.body.switchNumber);
-    //  We toggle the switch
-    relayControl.toggleRelay(switchNumber);
+    //  We toggle the switch and are returned the time it was toggled
+    const toggleTimestamp = relayControl.toggleRelay(switchNumber);
     // We get the refreshed state of our relays
     const refreshedRelays = relayControl.returnRelaysClean();
     //  From the array of relays we extract the one that was toggled
-    const toggledRelay = refreshedRelays.filter(relay => {
+    /* const toggledRelay = refreshedRelays.filter(relay => {
       return relay.switchNumber === switchNumber;
-    });
-    res.json(toggledRelay);
+    }); */
+    res.json([toggleTimestamp, refreshedRelays]);
   });
 
   app.get("/api/greetings/", (req, res) => {
