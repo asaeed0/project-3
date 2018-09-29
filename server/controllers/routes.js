@@ -2,6 +2,8 @@ const data = require("../models/data");
 const relayControl = require("../raspberry-pi/relayControl");
 const axios = require("axios");
 const scraper = require("./scraper");
+const weatherCurrentDummy = require("./apiDummy/weather_current");
+const weatherForecastDummy = require("./apiDummy/weather_forecast");
 
 const routes = app => {
   app.get("/api/", (req, res) => {
@@ -50,22 +52,29 @@ const routes = app => {
 
   app.get("/api/weather/current", (req, res) => {
     const apiUrl = data.weather.apiCall.current;
+    /* 
     axios.get(apiUrl).then(response => {
       const apiResponse = response.data;
       res.json(apiResponse);
     });
+    */
+    res.json(weatherCurrentDummy);
   });
 
   app.get("/api/weather/forecast", (req, res) => {
     const apiUrl = data.weather.apiCall.forecast;
+    /* 
     axios.get(apiUrl).then(response => {
       const apiResponse = response.data;
       res.json(apiResponse);
     });
+    */
+    res.json(weatherForecastDummy);
   });
 
-  app.get("/api/climate-control/", (req, res) => {
-    res.send("climate controller page");
+  app.post("/api/calendar/", (req, res) => {
+    const checkDate = req.body.checkDate;
+    console.log(checkDate);
   });
 };
 
