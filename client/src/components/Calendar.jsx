@@ -11,7 +11,7 @@ class Calendar extends Component {
     render() { 
         return (
             <div id="calendar-summary" onClick={() => this.handleClick()}>
-                <div id="calander-heading">Calander</div>
+                <div id="calendar-heading">Calendar</div>
             </div>
         );
     }

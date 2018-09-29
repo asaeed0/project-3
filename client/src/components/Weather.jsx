@@ -35,12 +35,8 @@ class Weather extends Component {
     }
 
     async componentDidMount() {
-        //  We get the external API details from our own API
-        const apiResponse = await fetch('/api/weather');
-        const weather = await apiResponse.json();
 
-        //  Makes the API Call
-        const { data: response } = await axios.get(weather.apiCall);
+        const { data: response } = await axios.get('/api/weather/current');
 
         // Preps the response
         // We convert the weather Icon from an int to a string and

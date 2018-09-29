@@ -23,9 +23,16 @@ module.exports = {
     ]
   },
   weather: {
-    apiKey: "",
-    apiCall:
-      "http://dataservice.accuweather.com/currentconditions/v1/55488?apikey=b6myurKAMGUZIjoWJ7Xf6XYQAP45lhOg&details=true"
+    apiKey: {
+      key1: "GlU6KaKPpPk9MyTvfMocJ9stJn7mMf1q",
+      key2: "b6myurKAMGUZIjoWJ7Xf6XYQAP45lhOg"
+    },
+    apiCall: {
+      current:
+        "http://dataservice.accuweather.com/currentconditions/v1/55488?apikey=GlU6KaKPpPk9MyTvfMocJ9stJn7mMf1q",
+      forecast:
+        "http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/55488?apikey=GlU6KaKPpPk9MyTvfMocJ9stJn7mMf1q&details=true"
+    }
   },
   relays: {
     presets: [
