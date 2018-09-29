@@ -5,6 +5,8 @@
     padding: 20px;
     margin: 15px;
     border-radius: 7px;
+
+    cursor: pointer;
 }
 
 #dashboard-heading {

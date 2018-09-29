@@ -9,9 +9,14 @@ class News extends Component {
         error: false,
         news: []
     }
+
+    handleClick() {
+        window.location.assign("http://localhost:3000/news/")
+    }
+
     render() { 
         return ( 
-            <div id="news-summary">
+            <div id="news-summary" onClick={() => this.handleClick()}>
                 <div id="news-heading">News</div>
                 <div id="news-body">
                     {this.state.news.map((article, i) => {

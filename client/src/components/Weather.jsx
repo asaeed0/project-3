@@ -5,13 +5,18 @@ class Weather extends Component {
     state = {
         apiLoad: false,
         error: false,
-     }
+    }
+
+    handleClick() {
+        window.location.assign("http://localhost:3000/weather/")
+    }
+
     render() {
 
         const { weather } = this.state;
 
         return ( 
-            <div id="weather-summary">
+            <div id="weather-summary" onClick={() => this.handleClick()}>
                 <div id="weather-heading">Weather</div>
                 <div id="weather-content">
                     {!this.state.apiLoad ? <span id="weather-preload">Loading...</span> : null}
