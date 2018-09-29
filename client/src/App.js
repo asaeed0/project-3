@@ -5,7 +5,7 @@ import { Route } from "react-router-dom";
 import "./App.css";
 
 //  Summary Elements
-// import Weather from "./components/Weather";
+import Weather from "./components/Weather";
 import News from "./components/News";
 import Greeting from "./components/Greeting";
 import Dashboard from "./components/Dashboard";
@@ -23,14 +23,14 @@ class App extends Component {
       <BrowserRouter>
         <React.Fragment>
           <Dashboard />
-          {/* <Weather /> */}
+          <Weather />
           <Route path="/relay" exact component={RelayWidget} />
           <Route path="/calendar" exact component={CalendarWidget} />
           <Route path="/weather" exact component={WeatherWidget} />
-          <Route path="/news" exact component={NewsWidget} />
+          <Route path="/news" component={NewsWidget} />
           <Route path="/" exact component={Greeting} />
           <Calendar />
-          <News />}
+          <News />
         </React.Fragment>
       </BrowserRouter>
     );

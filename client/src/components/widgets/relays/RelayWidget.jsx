@@ -2,44 +2,46 @@ import React, { Component } from 'react';
 import './RelayWidget.css'
 import Relay from './Relay'
 import axios from 'axios'
+import PresetBtn from './PresetBtn';
 
 
 class RelayWidget extends Component {
     state = {
-        timestamp: null,
-        relays: []
+        presets: [],
+        relays: [],
     }
-    handleToggle = async (relay, timestamp=this.state.timestamp) => {
-        const { data: apiResponse } = await axios.post('/api/relay-control/', { switchNumber : relay, timestamp: timestamp, });
-        const updatedTimestamp = apiResponse[0];
-        const updatedRelays = apiResponse[1];
-
-        this.setState({ timestamp: updatedTimestamp, relays: updatedRelays});
+    handleToggle = async (relay) => {
+        const { data: apiResponse } = await axios.post('/api/relay-control/relay', { switchNumber: relay });
+        this.setState({ relays: apiResponse});
+    }
+    handlePreset = async (presetId) => {
+        const { data: apiResponse } = await axios.post('/api/relay-control/preset', { presetId: presetId});
+        this.setState({ relays: apiResponse});
     }
     render() {
+        const { presets, relays } = this.state;
         return (
-            <div id="relay-widget" data-timestamp={this.state.timestamp} >
-                <h2>Relay Switch</h2>
+            <div id="relay-widget">
+                <div id="relay-heading">Relay Switch</div>
 
                 <div id="relay-presets">
-                    <button id="relay-btn-energy" >Energy Saver</button>
-                    <button id="relay-btn-evening" >Evening</button>
-                    <button id="relay-btn-night" >Night</button>
+                    {presets.map((preset, i) => {
+                        return <PresetBtn preset={preset} onToggle={this.handlePreset} key={i} />
+                    })}
                 </div>
 
-                {this.state.relays.map((relay, i) => {
-                    return (
-                        <Relay relay={relay} onToggle={this.handleToggle} i={i} key={i} />
-                    )
-                })}
+                <div id="relay-relays">
+                    {relays.map((relay, i) => {
+                        return <Relay relay={relay} onToggle={this.handleToggle} key={i} />
+                    })}
+                </div>
             </div>
         );
     }
 
     async componentDidMount() {
-        const response = await fetch('/api/relay-control');
-        const body = await response.json();
-        this.setState({ relays: body })
+        const { data: apiResponse } = await axios.get('/api/relay-control/');
+        this.setState({ presets: apiResponse.presets, relays: apiResponse.relays })
     }
 
 }

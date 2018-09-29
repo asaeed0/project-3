@@ -1,33 +1,34 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import './Article.css'
 
 class Article extends Component {
-    state = { 
-        articles: this.props.articles,
-        id: this.props.id
-    }
-
-    componentWillReceiveProps(nextProps){
-        if(nextProps.articles !== this.props.articles){
-            this.setState({articles: nextProps.articles, id: nextProps.id});
-        }
-    }
+    state = { articleContent: [] }
     render() { 
-        console.log(this.state);
-        const article = this.state.articles[this.state.id];
+        const article = this.props.articles[this.props.match.params.id];
         return (
             <div id="article">
                 <div id="article-headline">
-                    <div>{this.state.articles.length > 1 ? article.title : null}</div>
+                    <div>{this.props.articles.length > 1 ? article.title : null}</div>
                 </div>
                 <div id="article-body">
                     <div id="article-image" >
-                        <img src={this.state.articles.length > 1 ? article.urlToImage : null} alt="Hello" width="100%" />
+                        <img src={this.props.articles.length > 1 ? article.urlToImage : null} alt="Hello" width="100%" />
                     </div>
-                    <div id="article-content">{this.state.articles.length > 1 ? article.content : null}</div>
+                    <div id="article-content">
+                        {this.state.articleContent.map((para, i) =>  <p key={i}>{para}</p> )}
+                    </div>
                 </div>
             </div>
         );
+    }
+    async componentWillReceiveProps(nextProps) {
+        if (this.props !== nextProps && nextProps.articles.length > 1) {
+            const article = nextProps.articles[nextProps.match.params.id];
+            const { data: apiResponse } = await axios.post('/api/news/article-scrape', { scrapeUrl: article.url});
+            this.setState({articleContent: apiResponse});
+            console.log('News Article API call successful');
+           }
     }
 }
  

@@ -12,9 +12,11 @@
     border-radius: 8px;
 }
 
-#relay-widget h2 {
+
+#relay-heading {
     text-align: center;
-    font-size: 2.5em;
+    font-size: 1.5em;
+    margin-bottom: 25px;
 }
 
 #relay-presets {
@@ -28,4 +30,9 @@
     height: 30px;
     width: 100px;
     border-radius: 3px;
+}
+
+#relay-relays {
+    padding-left: 20px;
+    padding-right: 20px;
 }

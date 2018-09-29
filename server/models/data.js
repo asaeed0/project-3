@@ -28,6 +28,23 @@ module.exports = {
       "http://dataservice.accuweather.com/currentconditions/v1/55488?apikey=b6myurKAMGUZIjoWJ7Xf6XYQAP45lhOg&details=true"
   },
   relays: {
+    presets: [
+      {
+        id: 1,
+        name: "Energy Saver",
+        switchNumbers: [1, 2, 4]
+      },
+      {
+        id: 2,
+        name: "Evening",
+        switchNumbers: [1, 2, 3, 4, 5]
+      },
+      {
+        id: 3,
+        name: "Night",
+        switchNumbers: [2]
+      }
+    ],
     pins: [
       {
         name: "Lamp 1",
@@ -141,56 +158,6 @@ module.exports = {
         gpioNumber: 0,
         isActive: false
       }
-    ],
-    RelayController: class {
-      constructor(Gpio, relays = this.pins) {
-        this.lastToggle = "";
-        this.activeRelays = (() => {
-          const relaysActive = relays.filter(relay => {
-            return relay.isActive;
-          });
-          relaysActive.map(relay => {
-            relay.gpio = new Gpio(relay.gpioNumber, {
-              mode: Gpio.OUTPUT,
-              alert: true
-            });
-          });
-          console.log("Relays successfully initialized");
-          return relaysActive;
-        })();
-      }
-      toggleRelay(switchNumber) {
-        this.activeRelays.map((relay, i) => {
-          if (relay.switchNumber === switchNumber) {
-            const relayStatus = this.activeRelays[i].gpio.digitalRead();
-            if (relayStatus === 0) {
-              this.activeRelays[i].gpio.digitalWrite(1);
-              console.log("Changed switch " + switchNumber + " to ON");
-            } else if (relayStatus === 1) {
-              this.activeRelays[i].gpio.digitalWrite(0);
-              console.log("Changed switch " + switchNumber + " to ON");
-            }
-          }
-        });
-        this.lastToggle = Date.now();
-        return this.lastToggle;
-      }
-      returnRelaysClean() {
-        const relaysClean = [];
-        this.activeRelays.map(relay => {
-          const cleanRelay = {
-            name: relay.name,
-            group: relay.group,
-            switchNumber: relay.switchNumber,
-            status: relay.gpio.digitalRead() === 0 ? false : true
-          };
-          relaysClean.push(cleanRelay);
-        });
-        return relaysClean;
-      }
-      returnRelaysRaw() {
-        return this.activeRelays;
-      }
-    }
+    ]
   }
 };

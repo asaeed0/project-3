@@ -1,5 +1,6 @@
 const data = require("../models/data");
 const relayControl = require("../raspberry-pi/relayControl");
+const scraper = require("./scraper");
 
 const routes = app => {
   app.get("/api/", (req, res) => {
@@ -8,21 +9,38 @@ const routes = app => {
 
   //  RELAY ROUTING
   app.get("/api/relay-control/", (req, res) => {
-    res.json(relayControl.returnRelaysClean());
+    const relays = relayControl.returnRelaysClean();
+    const presets = relayControl.returnPresetsClean();
+    res.json({ relays: relays, presets: presets });
   });
 
-  app.post("/api/relay-control/", (req, res) => {
+  app.post("/api/relay-control/relay", (req, res) => {
     //  Prep incoming data - SwitchNumber
     const switchNumber = parseInt(req.body.switchNumber);
-    //  We toggle the switch and are returned the time it was toggled
-    const toggleTimestamp = relayControl.toggleRelay(switchNumber);
+    //  We toggle the switch
+    relayControl.toggleRelay(switchNumber);
     // We get the refreshed state of our relays
     const refreshedRelays = relayControl.returnRelaysClean();
     //  From the array of relays we extract the one that was toggled
-    /* const toggledRelay = refreshedRelays.filter(relay => {
-      return relay.switchNumber === switchNumber;
-    }); */
-    res.json([toggleTimestamp, refreshedRelays]);
+    res.json(refreshedRelays);
+  });
+
+  app.post("/api/relay-control/preset", (req, res) => {
+    //  Prep incoming data - presetId
+    const presetId = parseInt(req.body.presetId);
+    //  We toggle the preset
+    relayControl.togglePreset(presetId);
+    // We get the refreshed state of our relays
+    const refreshedRelays = relayControl.returnRelaysClean();
+    //  From the array of relays we extract the one that was toggled
+    res.json(refreshedRelays);
+  });
+
+  //  NEWS ROUTING
+  app.post("/api/news/article-scrape", (req, res) => {
+    //  Prep incoming data - scrapeUrl
+    const scrapeUrl = req.body.scrapeUrl;
+    scraper(scrapeUrl).then(scrapedArticle => res.send(scrapedArticle));
   });
 
   app.get("/api/greetings/", (req, res) => {

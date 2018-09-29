@@ -1,27 +1,19 @@
-.switch-name {
-    font-size: 2em;
-    padding-right: 30px;
-    vertical-align: top;
-}
-
 .single-switch {
-    width: 250px;
     margin-bottom: 15px;
+
+    display: grid;
+    grid-template-columns: 150px 50px;
 }
 
-.switch-pair {
+.switch-name {
+    font-size: 1.3em;
+    padding-right: 30px;
+}
+
+.switch-name div {
     position: relative;
-    background: greenyellow;
-}
-
-.switch {
-    margin-top: 8px;
-}
-
-.switch-col {
-    float: left;
-    padding-left: 30px;
-    padding-top: 20px;
+    top: 50%;
+    transform: translate(0%, -50%);
 }
 
 /* The switch - the box around the slider */
