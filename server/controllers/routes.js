@@ -1,5 +1,6 @@
 const data = require("../models/data");
 const relayControl = require("../raspberry-pi/relayControl");
+const axios = require("axios");
 const scraper = require("./scraper");
 
 const routes = app => {
@@ -47,8 +48,20 @@ const routes = app => {
     res.json(data.userSettings.greetings);
   });
 
-  app.get("/api/weather/", (req, res) => {
-    res.json(data.weather);
+  app.get("/api/weather/current", (req, res) => {
+    const apiUrl = data.weather.apiCall.current;
+    axios.get(apiUrl).then(response => {
+      const apiResponse = response.data;
+      res.json(apiResponse);
+    });
+  });
+
+  app.get("/api/weather/forecast", (req, res) => {
+    const apiUrl = data.weather.apiCall.forecast;
+    axios.get(apiUrl).then(response => {
+      const apiResponse = response.data;
+      res.json(apiResponse);
+    });
   });
 
   app.get("/api/climate-control/", (req, res) => {
